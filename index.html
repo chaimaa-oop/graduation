@@ -252,36 +252,33 @@
 
                     <form id="rsvp-form" class="space-y-5 sm:space-y-6">
                         <div>
-                            <label class="block text-sm sm:text-base font-medium text-gold_light mb-3">Nom Complet</label>
-                            <input type="text" class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 text-sm sm:text-base"
+                            <label for="full-name" class="block text-sm sm:text-base font-medium text-gold_light mb-3">Nom Complet</label>
+                            <input id="full-name" name="full-name" type="text" required
+                                class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 text-sm sm:text-base"
                                 placeholder="Entrez votre nom complet">
+                            <p class="mt-2 text-sm text-red-400 hidden" data-error-for="full-name"></p>
                         </div>
 
                         <div>
-                            <label class="block text-sm sm:text-base font-medium text-gold_light mb-3">Nombre d'Invités</label>
+                            <label for="guest-count" class="block text-sm sm:text-base font-medium text-gold_light mb-3">Nombre d'Invités</label>
                             <div class="relative">
-                                <select class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 appearance-none text-sm sm:text-base">
+                                <select id="guest-count" name="guest-count" required
+                                    class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 text-sm sm:text-base">
+                                    <option value="" selected disabled>Choisissez un nombre</option>
                                     <option value="1">1 Personne</option>
                                     <option value="2">2 Personnes</option>
                                     <option value="3">3 Personnes</option>
                                     <option value="4">4 Personnes</option>
                                 </select>
-                                <!-- Custom select arrow -->
-                                <div
-                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-gold">
-                                    <svg class="fill-current h-5 w-5" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </div>
                             </div>
+                            <p class="mt-2 text-sm text-red-400 hidden" data-error-for="guest-count"></p>
                         </div>
 
                         <div>
-                            <label class="block text-sm sm:text-base font-medium text-gold_light mb-3">Message de Félicitations
+                            <label for="congrats-message" class="block text-sm sm:text-base font-medium text-gold_light mb-3">Message de Félicitations
                                 (Optionnel)</label>
-                            <textarea rows="4" class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 resize-none text-sm sm:text-base"
+                            <textarea id="congrats-message" name="congrats-message" rows="4"
+                                class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 resize-none text-sm sm:text-base"
                                 placeholder="Écrivez un message de félicitations..."></textarea>
                         </div>
 
@@ -415,6 +412,45 @@
             if (rsvpForm) {
                 rsvpForm.addEventListener('submit', function (e) {
                     e.preventDefault(); // Prevent page reload
+
+                    const fullNameInput = document.getElementById('full-name');
+                    const guestCountInput = document.getElementById('guest-count');
+                    const fields = [fullNameInput, guestCountInput];
+                    let isValid = true;
+
+                    function setError(input, message) {
+                        const errorElement = document.querySelector(`[data-error-for="${input.name}"]`);
+                        if (errorElement) {
+                            errorElement.textContent = message;
+                            errorElement.classList.remove('hidden');
+                        }
+                        input.classList.add('border-red-400', 'focus:border-red-400', 'focus:shadow-[0_0_0_1px_#f87171]');
+                    }
+
+                    function clearError(input) {
+                        const errorElement = document.querySelector(`[data-error-for="${input.name}"]`);
+                        if (errorElement) {
+                            errorElement.textContent = '';
+                            errorElement.classList.add('hidden');
+                        }
+                        input.classList.remove('border-red-400', 'focus:border-red-400', 'focus:shadow-[0_0_0_1px_#f87171]');
+                    }
+
+                    fields.forEach(field => clearError(field));
+
+                    if (!fullNameInput.value.trim()) {
+                        setError(fullNameInput, 'Veuillez entrer votre nom complet.');
+                        isValid = false;
+                    }
+
+                    if (!guestCountInput.value) {
+                        setError(guestCountInput, 'Veuillez sélectionner le nombre d\'invités.');
+                        isValid = false;
+                    }
+
+                    if (!isValid) {
+                        return;
+                    }
 
                     // Show modal
                     successModal.classList.remove('opacity-0', 'pointer-events-none');
