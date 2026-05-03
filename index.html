@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Invitation — Dr. Chaimaa Ftaita</title>
+    <!-- Open Graph / Social preview (use absolute URL after publishing) -->
+    <meta property="og:title" content="Soutenance de thèse — Dr Chaimaa Ftaita">
+    <meta property="og:description" content="Vous êtes invité(e) à la soutenance de thèse de Dr Chaimaa Ftaita — Jeudi 14 mai 2026, 17h00, Faculté de Médecine Dentaire de Casablanca.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Soutenance Dr Chaimaa Ftaita">
+    <meta property="og:url" content="https://chaimaa-invitation.vercel.app/">
+    <meta property="og:image" content="https://chaimaa-invitation.vercel.app/chaimaa.jpeg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="768">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:image:alt" content="Invitation à la soutenance de thèse de Dr Chaimaa Ftaita">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Soutenance de thèse — Dr Chaimaa Ftaita">
+    <meta name="twitter:description" content="Jeudi 14 mai 2026 — 17h00 — Faculté de Médecine Dentaire de Casablanca.">
+    <meta name="twitter:image" content="https://chaimaa-invitation.vercel.app/chaimaa.jpeg">
+    <link rel="image_src" href="https://chaimaa-invitation.vercel.app/chaimaa.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -461,6 +478,13 @@
             transform: translateY(0);
         }
 
+        /* QUOTE */
+        .quote-banner{padding:clamp(2.5rem,6vw,4rem) clamp(1.25rem,5vw,3rem);text-align:center;position:relative;overflow:hidden;}
+        .quote-banner::before{content:'"';position:absolute;top:-1rem;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-size:clamp(8rem,20vw,14rem);color:rgba(139,0,32,.15);line-height:1;pointer-events:none;}
+        .quote-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.2rem,4vw,2rem);font-weight:300;color:var(--rose-pale);line-height:1.5;max-width:600px;margin:0 auto;position:relative;z-index:1;}
+        .quote-author{margin-top:1rem;font-size:clamp(.65rem,2vw,.75rem);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;}
+
+        
         /* ── SAFE AREA ── */
         @supports (padding: env(safe-area-inset-bottom)) {
             footer { padding-bottom: calc(clamp(1.5rem, 4vw, 2.5rem) + env(safe-area-inset-bottom)); }
@@ -513,7 +537,12 @@
     </section>
 
     <div class="section-divider"></div>
-
+<!-- QUOTE -->
+<div class="quote-banner reveal">
+    <p class="quote-text">Le savoir est une lumière que rien ne peut éteindre.</p>
+    <p class="quote-author">— En l'honneur de Dr. Chaimaa</p>
+</div>
+<div class="section-divider"></div>
     <!-- DETAILS -->
     <section class="details">
         <div class="section-tag reveal">Informations</div>
@@ -545,13 +574,14 @@
         </div>
     </section>
 
-    <!-- PHOTO -->
-    <section class="photo-section">
-        <div class="photo-frame reveal">
-            <div class="photo-glow"></div>
-            <img src="./chaimaa.jpeg" alt="Dr. Chaimaa Ftaita" class="photo-img" onerror="this.style.display='none'">
-        </div>
-    </section>
+<section class="photo-section">
+    <div class="photo-frame reveal">
+        <div class="photo-glow"></div>
+        <div class="deco-ring" style="inset:-22px;"></div>
+        <div class="deco-ring" style="inset:-40px;animation-direction:reverse;animation-duration:30s;border-color:rgba(184,48,74,.18);"></div>
+        <img src="./chaimaa.jpeg" alt="Dr. Chaimaa Ftaita" class="photo-img" onerror="this.style.opacity='0'">
+    </div>
+</section>
 
     <div class="section-divider"></div>
 
@@ -576,26 +606,20 @@
 
     <script>
         // COUNTDOWN
-        const target = new Date("May 14, 2026 17:00:00").getTime();
-        function tick() {
-            const dist = target - Date.now();
-            if (dist < 0) {
-                document.getElementById('countdown').innerHTML =
-                    "<div style='grid-column:1/-1;font-family:Cormorant Garamond,serif;font-size:clamp(1.2rem,4vw,2rem);color:#E8A0A8;padding:1rem;'>Il est temps de célébrer !</div>";
-                return;
-            }
-            const d = Math.floor(dist / 86400000);
-            const h = Math.floor((dist % 86400000) / 3600000);
-            const m = Math.floor((dist % 3600000) / 60000);
-            const s = Math.floor((dist % 60000) / 1000);
-            const fmt = n => String(n).padStart(2, '0');
-            document.getElementById('days').textContent = fmt(d);
-            document.getElementById('hours').textContent = fmt(h);
-            document.getElementById('minutes').textContent = fmt(m);
-            document.getElementById('seconds').textContent = fmt(s);
-        }
-        tick();
-        setInterval(tick, 1000);
+const target=new Date("May 14, 2026 17:00:00").getTime();
+const prev={days:'',hours:'',minutes:'',seconds:''};
+function bump(id){const el=document.getElementById(id);el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),200);}
+function tick(){
+    const dist=target-Date.now();
+    if(dist<0){document.getElementById('countdown').innerHTML="<div style='grid-column:1/-1;font-family:Cormorant Garamond,serif;font-size:clamp(1.2rem,4vw,2rem);color:#E8A0A8;padding:1rem;'>Il est temps de célébrer !</div>";launchConfetti();return;}
+    const f=n=>String(n).padStart(2,'0');
+    const d=f(Math.floor(dist/86400000)),h=f(Math.floor((dist%86400000)/3600000)),m=f(Math.floor((dist%3600000)/60000)),s=f(Math.floor((dist%60000)/1000));
+    if(d!==prev.days){document.getElementById('days').textContent=d;bump('days');prev.days=d;}
+    if(h!==prev.hours){document.getElementById('hours').textContent=h;bump('hours');prev.hours=h;}
+    if(m!==prev.minutes){document.getElementById('minutes').textContent=m;bump('minutes');prev.minutes=m;}
+    if(s!==prev.seconds){document.getElementById('seconds').textContent=s;bump('seconds');prev.seconds=s;}
+}
+tick();setInterval(tick,1000);
 
         // SCROLL REVEAL
         const observer = new IntersectionObserver(entries => {
