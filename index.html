@@ -1,475 +1,612 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitation de Remise du Diplôme</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Invitation — Dr. Chaimaa Ftaita</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: '#0a192f',
-                        navy_light: '#112240',
-                        gold: '#d4af37',
-                        gold_light: '#f3e5ab',
-                    },
-                    fontFamily: {
-                        heading: ['"Playfair Display"', 'serif'],
-                        body: ['Montserrat', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 1s ease-out both',
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --crimson: #8B0020;
+            --crimson-deep: #5C0015;
+            --crimson-soft: #B8304A;
+            --rose: #E8A0A8;
+            --rose-pale: #F5D5D9;
+            --ivory: #FDF6F0;
+            --ink: #1A0008;
+            --gold: #C9965A;
+            --gold-light: #E8C49A;
+        }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: #0a192f;
-            background-image: url('./assets/gold_confetti.png');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--ink);
+            color: var(--ivory);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        @media (max-width: 1024px) {
-            body {
-                background-attachment: scroll;
-            }
+        /* ── NOISE TEXTURE ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.35;
         }
 
-        @media (max-width: 768px) {
-            .glass-card {
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-            }
+        /* ── HERO ── */
+        .hero {
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(5rem, 10vw, 7rem) clamp(1.25rem, 5vw, 3rem) clamp(3rem, 6vw, 5rem);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
         }
 
-        .glass-card {
-            background: rgba(17, 34, 64, 0.6);
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139, 0, 32, 0.35) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(92, 0, 21, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 10% 60%, rgba(184, 48, 74, 0.12) 0%, transparent 60%);
+        }
+
+        /* Animated orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: drift 12s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: clamp(200px, 40vw, 400px);
+            height: clamp(200px, 40vw, 400px);
+            background: radial-gradient(circle, rgba(139,0,32,0.4), transparent);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: clamp(150px, 30vw, 300px);
+            height: clamp(150px, 30vw, 300px);
+            background: radial-gradient(circle, rgba(201,150,90,0.2), transparent);
+            bottom: 10%;
+            right: -5%;
+            animation-delay: -4s;
+        }
+        .orb-3 {
+            width: clamp(100px, 20vw, 200px);
+            height: clamp(100px, 20vw, 200px);
+            background: radial-gradient(circle, rgba(184,48,74,0.3), transparent);
+            top: 60%;
+            left: 20%;
+            animation-delay: -8s;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(20px, -15px) scale(1.05); }
+            66% { transform: translate(-10px, 10px) scale(0.97); }
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: clamp(0.65rem, 2vw, 0.75rem);
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s ease forwards;
+        }
+        .hero-eyebrow::before, .hero-eyebrow::after {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.6;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: clamp(2.4rem, 9vw, 6.5rem);
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            color: var(--ivory);
+            margin-bottom: clamp(0.5rem, 2vw, 1rem);
+            opacity: 0;
+            animation: fadeUp 0.9s 0.4s ease forwards;
+        }
+        .hero-title em {
+            font-style: italic;
+            color: var(--rose);
+        }
+
+        .hero-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: clamp(2.2rem, 8.5vw, 6rem);
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--rose));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            opacity: 0;
+            animation: fadeUp 0.9s 0.55s ease forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            font-weight: 300;
+            color: var(--rose-pale);
+            opacity: 0;
+            animation: fadeUp 0.8s 0.7s ease forwards;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── COUNTDOWN ── */
+        .countdown-wrap {
+            margin-top: clamp(2.5rem, 6vw, 4rem);
+            opacity: 0;
+            animation: fadeUp 0.9s 0.85s ease forwards;
+            width: 100%;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-label {
+            font-size: clamp(0.6rem, 1.8vw, 0.7rem);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.5rem, 2vw, 1rem);
+            width: 100%;
+        }
+
+        .countdown-item {
+            background: rgba(139, 0, 32, 0.15);
+            border: 1px solid rgba(201, 150, 90, 0.2);
+            border-radius: 16px;
+            padding: clamp(0.75rem, 3vw, 1.25rem) 0.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .countdown-item::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,150,90,0.5), transparent);
+        }
+
+        .countdown-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: clamp(2rem, 7vw, 3.5rem);
+            color: var(--ivory);
+            line-height: 1;
+            display: block;
+        }
+        .countdown-unit {
+            font-size: clamp(0.5rem, 1.5vw, 0.6rem);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--rose);
+            display: block;
+            margin-top: 0.4rem;
+            font-weight: 500;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── DIVIDER ── */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,150,90,0.3), rgba(139,0,32,0.5), rgba(201,150,90,0.3), transparent);
+            margin: 0;
+        }
+
+        /* ── DETAILS SECTION ── */
+        .details {
+            padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 5vw, 3rem);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-tag {
+            font-size: clamp(0.6rem, 1.8vw, 0.7rem);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-tag::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .details-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: clamp(2rem, 7vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: clamp(2rem, 5vw, 3.5rem);
+            color: var(--ivory);
+        }
+        .details-heading em {
+            font-style: italic;
+            color: var(--rose);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 600px) {
+            .cards-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .detail-card {
+            background: rgba(139, 0, 32, 0.1);
+            border: 1px solid rgba(201, 150, 90, 0.15);
+            border-radius: 20px;
+            padding: clamp(1.25rem, 4vw, 2rem);
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, background 0.3s;
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .detail-card:hover {
+            border-color: rgba(201, 150, 90, 0.35);
+            background: rgba(139, 0, 32, 0.18);
+        }
+        .detail-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(201,150,90,0.06), transparent 60%);
+            pointer-events: none;
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .card-icon {
+            width: clamp(36px, 8vw, 44px);
+            height: clamp(36px, 8vw, 44px);
+            background: rgba(139, 0, 32, 0.4);
+            border: 1px solid rgba(201, 150, 90, 0.25);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+        .card-icon svg { width: 18px; height: 18px; }
+
+        .card-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #0a192f;
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 4vw, 1.75rem);
+            font-weight: 400;
+            color: var(--ivory);
+            line-height: 1.2;
+            margin-bottom: 0.35rem;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #d4af37;
-            border-radius: 4px;
+        .card-sub {
+            font-size: clamp(0.78rem, 2vw, 0.85rem);
+            color: var(--rose);
+            font-weight: 300;
         }
 
-        .form-input {
-            background: rgba(10, 25, 47, 0.5);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            color: white;
-            transition: all 0.3s ease;
+        /* ── PHOTO ── */
+        .photo-section {
+            padding: clamp(1rem, 4vw, 2rem) clamp(1.25rem, 5vw, 3rem) clamp(3rem, 8vw, 5rem);
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .form-input:focus {
-            outline: none;
-            border-color: #d4af37;
-            box-shadow: 0 0 0 1px #d4af37;
+        .photo-frame {
+            position: relative;
+            width: clamp(200px, 60vw, 340px);
+            margin: 0 auto;
         }
 
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: conic-gradient(var(--gold), var(--crimson-soft), var(--rose), var(--gold));
+            z-index: 0;
+            animation: spin 8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .photo-frame::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: var(--ink);
+            z-index: 1;
+        }
+
+        .photo-img {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            padding: 6px;
+        }
+
+        .photo-glow {
+            position: absolute;
+            inset: -30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139,0,32,0.4), transparent 70%);
+            z-index: 0;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.06); }
+        }
+
+        /* ── MAP SECTION ── */
+        .map-section {
+            padding: 0 clamp(1.25rem, 5vw, 3rem) clamp(3rem, 8vw, 5rem);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .map-container {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(201, 150, 90, 0.2);
+            height: clamp(260px, 50vw, 420px);
+            position: relative;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: saturate(0.8) contrast(1.1);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid rgba(201, 150, 90, 0.15);
+            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 5vw, 3rem);
+            text-align: center;
+        }
+        footer p {
+            font-size: clamp(0.7rem, 2vw, 0.78rem);
+            letter-spacing: 0.12em;
+            color: rgba(245, 213, 217, 0.45);
+            font-weight: 300;
+        }
+        footer span {
+            color: var(--crimson-soft);
+        }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── SAFE AREA ── */
+        @supports (padding: env(safe-area-inset-bottom)) {
+            footer { padding-bottom: calc(clamp(1.5rem, 4vw, 2.5rem) + env(safe-area-inset-bottom)); }
         }
     </style>
 </head>
+<body>
 
-<body
-    class="font-body text-white antialiased min-h-screen relative overflow-x-hidden selection:bg-gold selection:text-navy">
-    <!-- Overlay for better readability over confetti background -->
-    <div class="absolute inset-0 bg-navy/85 z-[-1] fixed"></div>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
 
-    <!-- Hero Section -->
-    <section class="min-h-[100svh] flex flex-col items-center justify-center text-center px-4 pt-16 pb-10 relative">
-        <div class="animate-fade-in-up flex flex-col items-center z-10 w-full max-w-4xl mx-auto"
-            style="animation-delay: 0.1s;">
-            <h1
-                class="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-gold mb-6 tracking-tight md:tracking-wide leading-tight">
-                Célébration de la<br>Remise du Diplôme de<br><span
-                    class="text-white mt-4 inline-block drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">CHAIMAA
-                    FTAITA</span>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Cérémonie de Soutenance</div>
+
+            <h1 class="hero-title">
+                Célébration de la<br>
+                <em>soutenance de thèse</em>
             </h1>
-            <p class="text-gold_light text-base sm:text-lg md:text-2xl max-w-2xl mt-4 font-light tracking-normal sm:tracking-wider opacity-90 px-2 sm:px-0">
-                Nous vous invitons à partager notre joie et notre réussite
-            </p>
-        </div>
 
-        <!-- Countdown Timer -->
-        <div class="mt-12 md:mt-16 animate-fade-in-up glass-card rounded-3xl p-5 sm:p-6 md:p-10 w-full max-w-3xl z-10 mx-auto"
-            style="animation-delay: 0.4s;">
-            <h3 class="text-gold font-heading text-xl sm:text-2xl md:text-3xl mb-6 md:mb-8">Compte à Rebours avant l'Événement</h3>
-            <div class="grid grid-cols-2 sm:flex justify-center gap-4 md:gap-8 max-w-sm sm:max-w-none mx-auto" id="countdown">
-                <div class="flex flex-col items-center min-w-0">
-                    <div
-                        class="bg-navy_light/80 border border-gold/30 rounded-2xl w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center text-2xl sm:text-3xl md:text-4xl font-bold text-white shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-sm">
-                        <span id="days">00</span>
+            <div class="hero-name">Dr. Chaimaa Ftaita</div>
+
+            <p class="hero-subtitle">Je vous invite à partager ma joie et ma réussite</p>
+
+            <div class="countdown-wrap">
+                <div class="countdown-label">Compte à Rebours</div>
+                <div class="countdown-grid" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-num" id="days">00</span>
+                        <span class="countdown-unit">Jours</span>
                     </div>
-                    <span class="text-gold_light text-xs sm:text-sm md:text-base mt-3 font-medium">Jours</span>
-                </div>
-                <div class="flex flex-col items-center min-w-0">
-                    <div
-                        class="bg-navy_light/80 border border-gold/30 rounded-2xl w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center text-2xl sm:text-3xl md:text-4xl font-bold text-white shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-sm">
-                        <span id="hours">00</span>
+                    <div class="countdown-item">
+                        <span class="countdown-num" id="hours">00</span>
+                        <span class="countdown-unit">Heures</span>
                     </div>
-                    <span class="text-gold_light text-xs sm:text-sm md:text-base mt-3 font-medium">Heures</span>
-                </div>
-                <div class="flex flex-col items-center min-w-0">
-                    <div
-                        class="bg-navy_light/80 border border-gold/30 rounded-2xl w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center text-2xl sm:text-3xl md:text-4xl font-bold text-white shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-sm">
-                        <span id="minutes">00</span>
+                    <div class="countdown-item">
+                        <span class="countdown-num" id="minutes">00</span>
+                        <span class="countdown-unit">Minutes</span>
                     </div>
-                    <span class="text-gold_light text-xs sm:text-sm md:text-base mt-3 font-medium">Minutes</span>
-                </div>
-                <div class="flex flex-col items-center min-w-0">
-                    <div
-                        class="bg-navy_light/80 border border-gold/30 rounded-2xl w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center text-2xl sm:text-3xl md:text-4xl font-bold text-white shadow-[0_0_15px_rgba(212,175,55,0.15)] backdrop-blur-sm">
-                        <span id="seconds">00</span>
+                    <div class="countdown-item">
+                        <span class="countdown-num" id="seconds">00</span>
+                        <span class="countdown-unit">Secondes</span>
                     </div>
-                    <span class="text-gold_light text-xs sm:text-sm md:text-base mt-3 font-medium">Secondes</span>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- Details Section -->
-    <section class="py-16 md:py-24 px-4 relative z-10 overflow-hidden">
-        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 md:gap-16 lg:gap-24">
-            <div class="w-full lg:w-1/2 scroll-animate" style="animation-delay: 0.1s;">
-                <div class="glass-card rounded-[2rem] p-6 sm:p-8 md:p-14 relative overflow-hidden">
-                    <!-- Decorative element -->
-                    <div class="absolute top-0 left-0 w-40 h-40 bg-gold/10 rounded-br-full"></div>
-                    <div class="absolute bottom-0 right-0 w-40 h-40 bg-gold/10 rounded-tl-full"></div>
-
-                    <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl text-gold mb-8 md:mb-10 text-center relative z-10">Détails de
-                        l'Invitation</h2>
-
-                    <div class="space-y-8 relative z-10">
-                        <div class="flex items-start gap-5">
-                            <div
-                                class="bg-gold/10 border border-gold/30 p-4 rounded-2xl text-gold shadow-[0_0_15px_rgba(212,175,55,0.1)]">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="pt-1">
-                                <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Date</h4>
-                                <p class="text-gold_light text-base sm:text-lg">Jeudi 14 Mai 2026</p>
-                                <p class="text-gold_light/70 text-sm sm:text-base">17h00</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-5">
-                            <div
-                                class="bg-gold/10 border border-gold/30 p-4 rounded-2xl text-gold shadow-[0_0_15px_rgba(212,175,55,0.1)]">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                    </path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="pt-1">
-                                <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Lieu</h4>
-                                <p class="text-gold_light text-base sm:text-lg">Faculté de Médecine Dentaire de Casablanca</p>
-                                <p class="text-gold_light/70 text-sm sm:text-base">Casablanca, Maroc</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full lg:w-1/2 flex justify-center mt-6 sm:mt-0 scroll-animate" style="animation-delay: 0.3s;">
-                <div class="w-80 h-80 sm:w-80 sm:h-80 md:w-[28rem] md:h-[28rem] relative animate-float">
-                    <div class="absolute inset-0 bg-gold/20 rounded-full blur-3xl mix-blend-screen"></div>
-                    <img src="./chaimaa.jpeg" alt="Graduation Diploma"
-                        class="w-full h-full object-contain relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Map & RSVP Section -->
-    <section class="py-16 md:py-24 px-4 relative z-10">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+    <div class="section-divider"></div>
 
-            <!-- RSVP Form -->
-            <div class="scroll-animate order-2 lg:order-1" style="animation-delay: 0.2s;">
-                <div class="glass-card rounded-[2rem] p-6 sm:p-8 md:p-12 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-gold via-gold_light to-gold">
-                    </div>
-                    <h2 class="font-heading text-3xl sm:text-4xl text-gold mb-3">Confirmation de Présence (RSVP)</h2>
-                    <p class="text-gold_light/80 mb-8 md:mb-10 text-base sm:text-lg">Nous serions ravis de votre présence pour partager notre
-                        joie</p>
+    <!-- DETAILS -->
+    <section class="details">
+        <div class="section-tag reveal">Informations</div>
+        <h2 class="details-heading reveal">Détails de<br><em>l'Invitation</em></h2>
 
-                    <form id="rsvp-form" class="space-y-5 sm:space-y-6">
-                        <div>
-                            <label for="full-name" class="block text-sm sm:text-base font-medium text-gold_light mb-3">Nom Complet</label>
-                            <input id="full-name" name="full-name" type="text" required
-                                class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 text-sm sm:text-base"
-                                placeholder="Entrez votre nom complet">
-                            <p class="mt-2 text-sm text-red-400 hidden" data-error-for="full-name"></p>
-                        </div>
-
-                        <div>
-                            <label for="guest-count" class="block text-sm sm:text-base font-medium text-gold_light mb-3">Nombre d'Invités</label>
-                            <div class="relative">
-                                <select id="guest-count" name="guest-count" required
-                                    class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 text-sm sm:text-base">
-                                    <option value="" selected disabled>Choisissez un nombre</option>
-                                    <option value="1">1 Personne</option>
-                                    <option value="2">2 Personnes</option>
-                                    <option value="3">3 Personnes</option>
-                                    <option value="4">4 Personnes</option>
-                                </select>
-                            </div>
-                            <p class="mt-2 text-sm text-red-400 hidden" data-error-for="guest-count"></p>
-                        </div>
-
-                        <div>
-                            <label for="congrats-message" class="block text-sm sm:text-base font-medium text-gold_light mb-3">Message de Félicitations
-                                (Optionnel)</label>
-                            <textarea id="congrats-message" name="congrats-message" rows="4"
-                                class="form-input w-full rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 resize-none text-sm sm:text-base"
-                                placeholder="Écrivez un message de félicitations..."></textarea>
-                        </div>
-
-                        <button type="submit"
-                            class="w-full bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-navy font-bold text-lg sm:text-xl py-3.5 sm:py-4 rounded-xl transition duration-300 transform hover:-translate-y-1 shadow-[0_10px_20px_rgba(212,175,55,0.2)] hover:shadow-[0_15px_30px_rgba(212,175,55,0.4)] mt-4">
-                            Confirmer la Présence
-                        </button>
-                    </form>
+        <div class="cards-grid">
+            <div class="detail-card reveal">
+                <div class="card-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
                 </div>
+                <div class="card-label">Date &amp; Heure</div>
+                <div class="card-title">Jeudi 14 Mai 2026</div>
+                <div class="card-sub">17h00</div>
             </div>
 
-            <!-- Interactive Map -->
-            <div class="scroll-animate order-1 lg:order-2" style="animation-delay: 0.4s;">
-                <div
-                    class="glass-card rounded-[2rem] p-5 sm:p-6 md:p-8 h-full min-h-[360px] md:min-h-[440px] lg:min-h-[500px] flex flex-col relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-gold via-gold_light to-gold">
-                    </div>
-                    <div class="mb-4 sm:mb-6">
-                        <h2 class="font-heading text-3xl sm:text-4xl text-gold">Lieu de l'Événement</h2>
-                    </div>
-                    <div
-                        class="relative w-full flex-grow rounded-2xl overflow-hidden border border-gold/30 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-                        <!-- Map Placeholder Image or iframe -->
-                        <iframe
-                            src="https://www.google.com/maps?q=Facult%C3%A9+de+M%C3%A9decine+Dentaire+de+Casablanca&output=embed"
-                            width="100%" height="100%"
-                            style="border:0; filter: invert(90%) hue-rotate(180deg) contrast(1.2);" allowfullscreen=""
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
+            <div class="detail-card reveal" style="transition-delay: 0.12s;">
+                <div class="card-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
                 </div>
+                <div class="card-label">Lieu</div>
+                <div class="card-title">Faculté de Médecine Dentaire</div>
+                <div class="card-sub">Casablanca, Maroc</div>
             </div>
-
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-8 sm:py-10 text-center relative z-10 border-t border-gold/20 bg-navy/90 backdrop-blur-lg mt-10 md:mt-12">
-        <p class="text-gold_light/80 text-xs sm:text-sm tracking-normal sm:tracking-widest font-light px-4">
-            Fait avec <span class="text-red-500 mx-1 animate-pulse inline-block">❤</span> par son frère
-        </p>
+    <!-- PHOTO -->
+    <section class="photo-section">
+        <div class="photo-frame reveal">
+            <div class="photo-glow"></div>
+            <img src="./chaimaa.jpeg" alt="Dr. Chaimaa Ftaita" class="photo-img" onerror="this.style.display='none'">
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- MAP -->
+    <section class="map-section">
+        <div class="section-tag reveal" style="margin-top:clamp(2rem,5vw,3.5rem);">Localisation</div>
+        <h2 class="details-heading reveal">Lieu de<br><em>l'Événement</em></h2>
+        <div class="map-container reveal">
+            <iframe
+                src="https://www.google.com/maps?q=Facult%C3%A9+de+M%C3%A9decine+Dentaire+de+Casablanca&output=embed"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Réalisé avec <span>♥</span> par <span>Sami</span>, son frère</p>
     </footer>
 
-    <!-- Success Modal -->
-    <div id="success-modal"
-        class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-navy/80 backdrop-blur-md modal-close cursor-pointer"></div>
-
-        <!-- Modal Content -->
-        <div
-            class="glass-card relative z-10 w-full max-w-md mx-4 rounded-3xl p-6 sm:p-8 text-center transform scale-95 transition-transform duration-300 border border-gold/40 shadow-[0_0_40px_rgba(212,175,55,0.3)]">
-            <div
-                class="mx-auto flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-gold/10 border border-gold/50 mb-5 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                <svg class="h-8 w-8 sm:h-10 sm:w-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-            </div>
-            <h3 class="text-2xl sm:text-3xl font-heading text-gold mb-4">Merci !</h3>
-            <p class="text-gold_light/90 text-base sm:text-lg mb-7 sm:mb-8 leading-relaxed">
-                Votre confirmation a bien été enregistrée. Nous avons hâte de célébrer ce moment inoubliable avec vous !
-            </p>
-            <button
-                class="modal-close w-full bg-gold/10 border border-gold/50 text-gold hover:bg-gold hover:text-navy font-bold py-3 px-6 rounded-xl transition duration-300 text-sm sm:text-base">
-                Fermer
-            </button>
-        </div>
-    </div>
-
-    <!-- Countdown Logic & Scroll Animations -->
     <script>
-        // Set the date we're counting down to
-        const countDownDate = new Date("May 14, 2026 17:00:00").getTime();
-
-        // Update the count down every 1 second
-        const x = setInterval(function () {
-            const now = new Date().getTime();
-            const distance = countDownDate - now;
-
-            // Time calculations
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Display the result
-            document.getElementById("days").innerHTML = days < 10 ? '0' + days : days;
-            document.getElementById("hours").innerHTML = hours < 10 ? '0' + hours : hours;
-            document.getElementById("minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById("seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds;
-
-            // If the count down is finished
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown").innerHTML = "<div class='text-3xl md:text-4xl text-gold font-bold py-8'>Il est temps de célébrer !</div>";
+        // COUNTDOWN
+        const target = new Date("May 14, 2026 17:00:00").getTime();
+        function tick() {
+            const dist = target - Date.now();
+            if (dist < 0) {
+                document.getElementById('countdown').innerHTML =
+                    "<div style='grid-column:1/-1;font-family:Cormorant Garamond,serif;font-size:clamp(1.2rem,4vw,2rem);color:#E8A0A8;padding:1rem;'>Il est temps de célébrer !</div>";
+                return;
             }
-        }, 1000);
+            const d = Math.floor(dist / 86400000);
+            const h = Math.floor((dist % 86400000) / 3600000);
+            const m = Math.floor((dist % 3600000) / 60000);
+            const s = Math.floor((dist % 60000) / 1000);
+            const fmt = n => String(n).padStart(2, '0');
+            document.getElementById('days').textContent = fmt(d);
+            document.getElementById('hours').textContent = fmt(h);
+            document.getElementById('minutes').textContent = fmt(m);
+            document.getElementById('seconds').textContent = fmt(s);
+        }
+        tick();
+        setInterval(tick, 1000);
 
-        // Intersection Observer for scroll animations
-        document.addEventListener("DOMContentLoaded", function () {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-in-up');
-                        entry.target.style.opacity = '1';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            // Select all elements that should animate on scroll
-            const animatedElements = document.querySelectorAll('.scroll-animate');
-
-            // Set initial state
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                observer.observe(el);
+        // SCROLL REVEAL
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
             });
-
-            // RSVP Form Handling & Modal Logic
-            const rsvpForm = document.getElementById('rsvp-form');
-            const successModal = document.getElementById('success-modal');
-            const modalCloses = document.querySelectorAll('.modal-close');
-
-            if (rsvpForm) {
-                rsvpForm.addEventListener('submit', function (e) {
-                    e.preventDefault(); // Prevent page reload
-
-                    const fullNameInput = document.getElementById('full-name');
-                    const guestCountInput = document.getElementById('guest-count');
-                    const fields = [fullNameInput, guestCountInput];
-                    let isValid = true;
-
-                    function setError(input, message) {
-                        const errorElement = document.querySelector(`[data-error-for="${input.name}"]`);
-                        if (errorElement) {
-                            errorElement.textContent = message;
-                            errorElement.classList.remove('hidden');
-                        }
-                        input.classList.add('border-red-400', 'focus:border-red-400', 'focus:shadow-[0_0_0_1px_#f87171]');
-                    }
-
-                    function clearError(input) {
-                        const errorElement = document.querySelector(`[data-error-for="${input.name}"]`);
-                        if (errorElement) {
-                            errorElement.textContent = '';
-                            errorElement.classList.add('hidden');
-                        }
-                        input.classList.remove('border-red-400', 'focus:border-red-400', 'focus:shadow-[0_0_0_1px_#f87171]');
-                    }
-
-                    fields.forEach(field => clearError(field));
-
-                    if (!fullNameInput.value.trim()) {
-                        setError(fullNameInput, 'Veuillez entrer votre nom complet.');
-                        isValid = false;
-                    }
-
-                    if (!guestCountInput.value) {
-                        setError(guestCountInput, 'Veuillez sélectionner le nombre d\'invités.');
-                        isValid = false;
-                    }
-
-                    if (!isValid) {
-                        return;
-                    }
-
-                    // Show modal
-                    successModal.classList.remove('opacity-0', 'pointer-events-none');
-                    successModal.classList.add('opacity-100');
-                    const modalContent = successModal.querySelector('.glass-card');
-                    modalContent.classList.remove('scale-95');
-                    modalContent.classList.add('scale-100');
-
-                    // Optional: Reset form fields after submission
-                    rsvpForm.reset();
-                });
-            }
-
-            // Close modal logic
-            function closeSuccessModal() {
-                successModal.classList.remove('opacity-100');
-                successModal.classList.add('opacity-0', 'pointer-events-none');
-                const modalContent = successModal.querySelector('.glass-card');
-                modalContent.classList.remove('scale-100');
-                modalContent.classList.add('scale-95');
-            }
-
-            modalCloses.forEach(btn => {
-                btn.addEventListener('click', closeSuccessModal);
-            });
-        });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
-
 </html>
