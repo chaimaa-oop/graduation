@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+      .bg { fill: #fff7f6; }
+      .overlay { fill: rgba(22,0,0,0.45); }
+      .title { font-family: 'Playfair Display', serif; font-size:48px; fill:#3b0006; font-weight:700; }
+      .subtitle { font-family: 'Montserrat', sans-serif; font-size:20px; fill:#6a0f16; }
+      .big { font-family: 'Playfair Display', serif; font-size:72px; fill:#3b0006; letter-spacing:6px; }
+      .small { font-family: 'Montserrat', sans-serif; font-size:18px; fill:#6a0f16; }
+    ]]></style>
+  </defs>
+
+  <!-- background photo -->
+  <rect width="1200" height="630" fill="#fff7f6" />
+  <image href="../chaimaa.jpeg" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMid slice" />
+
+  <!-- dark overlay for legibility -->
+  <rect x="0" y="0" width="1200" height="630" class="overlay" />
+
+  <!-- left decorative margin to mimic invitation -->
+  <g transform="translate(60,80)">
+    <text x="0" y="30" class="subtitle">Vous êtes invité(e) à la</text>
+    <text x="0" y="70" class="title">Soutenance de thèse</text>
+    <text x="0" y="150" class="big">Dr CHAIMAA</text>
+    <text x="0" y="230" class="big">FTAITA</text>
+    <text x="0" y="310" class="small">Jeudi 14 mai 2026 — 17h00</text>
+    <text x="0" y="340" class="small">Faculté de Médecine Dentaire — Casablanca</text>
+  </g>
+
+</svg>
